@@ -1,0 +1,19 @@
+# Ansible playbook for installing development related tools into Fedora Asahi Remix
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Install RPM Fusion free gpg key
+      become: true
+      ansible.builtin.rpm_key:
+       key: https://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-2020
+       state: present
+
+    - name: Install RPM Fusion
+      become: true
+      dnf:
+        name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm"
+        state: present
+
+#   - name: Install visual studio code
+#     become: true
+#     command: dnf install code
