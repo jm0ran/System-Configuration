@@ -83,6 +83,18 @@
       dnf:
         name: python
         state: latest
+    
+    - name: Install CMake
+      become: true
+      dnf:
+        name: cmake
+        state: latest
+
+    - name: Install G++
+      become: true
+      dnf:
+        name: g++
+        state: latest
 
 
     
