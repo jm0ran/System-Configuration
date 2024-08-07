@@ -52,5 +52,40 @@
           become: true
           dnf:
             name: code
-            state: present
+            state: latest
 
+    - name: Install Kitty Terminal Emulator
+      become: true
+      dnf: 
+        name: kitty
+        state: latest
+
+    - name: Install Git
+      become: true
+      dnf:
+       name: git
+       state: latest
+
+    - name: Install NeoVim
+      become: true
+      dnf:
+        name: neovim
+        state: latest
+
+    - name: Install NodeJS
+      become: true
+      dnf:
+        name: nodejs
+        state: latest
+
+    - name: Install Python
+      become: true
+      dnf:
+        name: python
+        state: latest
+
+
+    
+
+
+    
