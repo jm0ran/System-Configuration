@@ -1,0 +1,60 @@
+# Ansible playbook for installing general applications into Fedora Asahi Remix
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Install Firefox
+      become: true
+      dnf:
+        name: firefox
+        state: latest
+
+    - name: Install Obsidian
+      block:
+        - name: Install ZLib Dependency
+          become: true
+          dnf:
+            name: zlib-devel
+            state: latest
+
+        - name: Python3 PIP
+          become: true
+          dnf:
+            name: python3-pip
+            state: latest
+
+        - name: Python3 Github Module
+          pip:
+            name: github3.py
+            state: latest
+
+        - name: Get Latest AppImage From Github
+          github_release:
+            user: obsidianmd
+            repo: obsidian-releases
+            action: latest_release
+          register: Obsidian_Latest
+
+        - name: Gather current Obsidian version
+          find:
+            paths: /usr/share
+            patterns: ['Obsidian-[0-9]+\.[0-9]+\.[0-9]+-arm64\.AppImage']
+            use_regex: yes
+          register: Obsidian_Search
+        
+        - name: Define Installed Obsidian Version
+          when: Obsidian_Search.matched != 0
+          set_fact:
+            Obsidian_Installed_Version: "{{ Obsidian_Search.files[0].path | regex_search('(?<=Obsidian-)[0-9]+\\.[0-9]+\\.[0-9]+(?=-arm64\\.AppImage)') }}"
+        
+        - name: Define Remote Obsidian Version
+          set_fact:
+            Obsidian_Remote_Version: "{{ Obsidian_Latest.tag | regex_search('[0-9]+\\.[0-9]+\\.[0-9]+') }}"
+
+        - name: Install Obsidian Version
+          when: Obsidian_Search.matched == 0 or Obsidian_Installed_Version is version(Obsidian_Remote_Version, "<")
+          block:
+            - name: Proceed
+              shell: echo 'Proceed with install'
+        
+        
+      
