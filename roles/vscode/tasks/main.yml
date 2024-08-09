@@ -1,0 +1,37 @@
+# This install process follows the documented install process for fedora systems
+- name: Check for Microsoft RPM Key
+  shell: rpm -q --queryformat "%{SUMMARY}\n" $(rpm -q gpg-pubkey) | grep "Microsoft (Release signing)"
+  register: Microsoft_GPG_Key
+  changed_when: false
+  failed_when: false # If this key doesn't exist grep will return code 1 but that is ok, we still want to continue
+
+- name: Import the Microsoft RPM Key (Skip if already exists)
+  when: Microsoft_GPG_Key.stdout == ''
+  become: true
+  command: sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+
+- name: Ensure The Visual Studio Code repository file exists
+  become: true
+  copy:
+    dest: /etc/yum.repos.d/vscode.repo
+    content: |
+      [code]
+      name=Visual Studio Code
+      baseurl=https://packages.microsoft.com/yumrepos/vscode
+      enabled=1
+      gpgcheck=1
+      gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Update DNF
+  shell: dnf check-update
+  failed_when: false
+  changed_when: false
+
+- name: Install VSCode Package
+  become: true
+  dnf:
+    name: code
+    state: latest

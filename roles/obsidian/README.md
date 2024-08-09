@@ -1,0 +1,2 @@
+# Obsidian Install Role
+This role handles the installation of Obsidian on Fedora, specifically on Fedora Asahi Remix. The role is designed to handle updates by pulling the latest arm64 release from Github and hopefully that holds up but who can say for sure. I would eventually like to add x86 support to this script as I plan to use these roles if I ever transition from Asahi Linux on my mac to Fedora on an x86 device. While I would have liked to use dnf or snap to install Obsidian, neither currently distribute arm64 versions.
