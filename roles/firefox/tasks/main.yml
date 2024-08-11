@@ -1,0 +1,21 @@
+- name: Install Firefox from DNF
+  become: true
+  dnf:
+    name: firefox
+    state: latest
+
+- name: Get Profiles
+  shell: cat ~/.mozilla/firefox/profiles.ini
+  register: Firefox_Profile_Search
+  changed_when: false
+
+- name: Create Personal Profile
+  when: not Firefox_Profile_Search.stdout | regex_search('\[Profile[0-9]+\]\\nName=Personal')
+  shell: firefox -CreateProfile "Personal"
+
+- name: Create School Profile
+  when: not Firefox_Profile_Search.stdout | regex_search('\[Profile[0-9]+\]\\nName=School')
+  shell: firefox -CreateProfile "School"
+
+# Going to come back eventually for settings and extensions configuration
+# Also want to create new desktop shortcuts for specific firefox profiles that will show in search and on taskbar

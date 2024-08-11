@@ -1,0 +1,2 @@
+# VSCode Install Role
+This role handles the installation of VSCode as defined by their website for fedora based distros such as Asahi. Should handle both arm and x86. Additionally I would like to handle VSCode configuration in this role as well. This wont come right away but is one of the primary goals of breaking this install out into it's own role.

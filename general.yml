@@ -3,10 +3,9 @@
   connection: local
   tasks:
     - name: Install Firefox
-      become: true
-      dnf:
+      import_role:
         name: firefox
-        state: latest
+
     - name: Install Obsidian
       import_role:
         name: obsidian
