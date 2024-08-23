@@ -1,0 +1,44 @@
+# General Applications
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Install Graphical Applications with Homebrew Cask
+      community.general.homebrew_cask:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - obsidian
+        - kitty
+        - firefox
+        - syncthing
+        - rectangle
+        - syncthing
+        - vscodium
+        - visual-studio-code
+        - obs
+        - discord
+
+    - name: Install Graphical Applications with Homebrew Cask (No Quarantine)
+      community.general.homebrew_cask:
+        name: "{{ item }}"
+        state: latest
+        install_options: "no-quarantine"
+      loop:
+        - chromium
+
+    - name: Install CLI applications with Homebrew
+      community.general.homebrew:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - git
+        - cmake
+        - neovim
+
+      
+
+    
+
+              
+        
+      

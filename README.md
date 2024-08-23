@@ -1,2 +1,2 @@
-# Asahi Configuration
-A repository containing ansible playbooks for Asahi Linux installation on my M1 Max 16 inch Macbook Pro. Specifically I am running the Fedora Asahi Linux with KDE Plasma.
+# System Configuration
+This repository holds ansible playbooks for different systems I use. Right now the focus is mostly on application installs but I hope to expand into application and os configuration as well.
