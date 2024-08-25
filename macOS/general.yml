@@ -34,7 +34,14 @@
         - git
         - cmake
         - neovim
+        - mas
 
+    - name: Install apps from app store
+      community.general.mas:
+        id: "{{ item }}"
+        state: latest 
+      loop:
+        - 1451685025 # Wireguard
       
 
     
