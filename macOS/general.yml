@@ -17,6 +17,9 @@
         - visual-studio-code
         - obs
         - discord
+        - iina
+        - vlc
+        - todoist
 
     - name: Install Graphical Applications with Homebrew Cask (No Quarantine)
       community.general.homebrew_cask:
@@ -35,6 +38,7 @@
         - cmake
         - neovim
         - mas
+        - python
 
     - name: Install apps from app store
       community.general.mas:
