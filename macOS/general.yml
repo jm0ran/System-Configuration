@@ -20,6 +20,8 @@
         - iina
         - vlc
         - todoist
+        - whisky
+        - chatgpt
 
     - name: Install Graphical Applications with Homebrew Cask (No Quarantine)
       community.general.homebrew_cask:
@@ -39,6 +41,7 @@
         - neovim
         - mas
         - python
+        - clang-format
 
     - name: Install apps from app store
       community.general.mas:
