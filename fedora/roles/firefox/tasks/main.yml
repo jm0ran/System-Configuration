@@ -9,13 +9,33 @@
   register: Firefox_Profile_Search
   changed_when: false
 
+- name: Search for Personal Profile
+  set_fact:
+    Personal_Profile_Name: "{{ Firefox_Profile_Search.stdout | regex_search('(?<=Path=)[A-z0-9]*.Personal') }}"
+  when: Firefox_Profile_Search.stdout | regex_search('(?<=Path=)[A-z0-9]*.Personal')
+
 - name: Create Personal Profile
-  when: not Firefox_Profile_Search.stdout | regex_search('\[Profile[0-9]+\]\\nName=Personal')
+  when: not Personal_Profile_Name
   shell: firefox -CreateProfile "Personal"
 
+- name: Apply Arkenfox User.js to Personal Profile
+  get_url:
+    url: https://raw.githubusercontent.com/arkenfox/user.js/master/user.js
+    dest: ~/.mozilla/firefox/{{ Personal_Profile_Name }}/user.js
+
+- name: Search for School Profile
+  set_fact:
+    School_Profile_Name: "{{ Firefox_Profile_Search.stdout | regex_search('(?<=Path=)[A-z0-9]*.School') }}"
+  when: Firefox_Profile_Search.stdout | regex_search('(?<=Path=)[A-z0-9]*.School')
+
 - name: Create School Profile
-  when: not Firefox_Profile_Search.stdout | regex_search('\[Profile[0-9]+\]\\nName=School')
+  when: not School_Profile_Name
   shell: firefox -CreateProfile "School"
+
+- name: Apply Arkenfox User.js to School Profile
+  get_url:
+    url: https://raw.githubusercontent.com/arkenfox/user.js/master/user.js
+    dest: ~/.mozilla/firefox/{{ School_Profile_Name }}/user.js
 
 # Going to come back eventually for settings and extensions configuration
 # Also want to create new desktop shortcuts for specific firefox profiles that will show in search and on taskbar
