@@ -6,10 +6,14 @@
       import_role:
         name: firefox
 
-    - name: Install Obsidian
-      import_role:
-        name: obsidian
+    - name: Add Flathub Repo
+      shell: sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+      changed_when: false
 
+    - name: Install Obsidian
+      community.general.flatpak:
+        name:  https://dl.flathub.org/repo/appstream/md.obsidian.Obsidian.flatpakref
+        state: latest
     
 
               
