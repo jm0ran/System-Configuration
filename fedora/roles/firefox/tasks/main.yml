@@ -15,8 +15,17 @@
   when: Firefox_Profile_Search.stdout | regex_search('(?<=Path=)[A-z0-9]*.Personal')
 
 - name: Create Personal Profile
-  when: not Personal_Profile_Name
-  shell: firefox -CreateProfile "Personal"
+  when: Personal_Profile_Name is not defined
+  block:
+    - name: Create Personal Profile
+      shell: firefox -CreateProfile "Personal"
+    - name: Get Profiles
+      shell: cat ~/.mozilla/firefox/profiles.ini
+      register: Firefox_Profile_Search_L
+      changed_when: false
+    - name: Get Personal Profile Name
+      set_fact:
+        Personal_Profile_Name: "{{ Firefox_Profile_Search_L.stdout | regex_search('(?<=Path=)[A-z0-9]*.Personal') }}" 
 
 - name: Apply Arkenfox User.js to Personal Profile
   get_url:
@@ -29,8 +38,18 @@
   when: Firefox_Profile_Search.stdout | regex_search('(?<=Path=)[A-z0-9]*.School')
 
 - name: Create School Profile
-  when: not School_Profile_Name
-  shell: firefox -CreateProfile "School"
+  when: School_Profile_Name is not defined
+  block:
+    - name: Create School Profile
+      shell: firefox -CreateProfile "School"
+    - name: Get Profiles
+      shell: cat ~/.mozilla/firefox/profiles.ini
+      register: Firefox_Profile_Search_L
+      changed_when: false
+    - name: Get School Profile Name
+      set_fact:
+        School_Profile_Name: "{{ Firefox_Profile_Search_L.stdout | regex_search('(?<=Path=)[A-z0-9]*.School') }}"
+
 
 - name: Apply Arkenfox User.js to School Profile
   get_url:
