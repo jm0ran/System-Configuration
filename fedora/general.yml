@@ -14,6 +14,17 @@
       community.general.flatpak:
         name:  https://dl.flathub.org/repo/appstream/md.obsidian.Obsidian.flatpakref
         state: latest
+
+    - name: Install Vesktop
+      community.general.flatpak:
+        name: https://dl.flathub.org/repo/appstream/dev.vencord.Vesktop.flatpakref
+        state: latest
+
+    - name: Install Steam
+      become: true
+      ansible.builtin.dnf:
+        name: steam
+        state: latest
     
 
               
