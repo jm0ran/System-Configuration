@@ -60,6 +60,12 @@
         name: g++
         state: latest
 
+    - name: Install SQLite Browser
+      become: true
+      dnf:
+        name: sqlitebrowser
+        state: latest
+
 
     
 

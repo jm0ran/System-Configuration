@@ -20,10 +20,31 @@
         name: https://dl.flathub.org/repo/appstream/dev.vencord.Vesktop.flatpakref
         state: latest
 
+    - name: Install Mission Center
+      community.general.flatpak:
+        name: https://dl.flathub.org/repo/appstream/io.missioncenter.MissionCenter.flatpakref
+        state: latest
+
     - name: Install Steam
       become: true
       ansible.builtin.dnf:
         name: steam
+        state: latest
+
+    - name: Install full HEIC support
+      become: true
+      ansible.builtin.dnf:
+        name: libheif-freeworld
+        state: latest
+
+    - name: Install Plex desktop app
+      community.general.flatpak:
+        name: https://dl.flathub.org/repo/appstream/tv.plex.PlexDesktop.flatpakref
+        state: latest
+
+    - name: Install Plex HTPC app
+      community.general.flatpak:
+        name: https://dl.flathub.org/repo/appstream/tv.plex.PlexHTPC.flatpakref
         state: latest
     
 
