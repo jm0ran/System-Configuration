@@ -15,9 +15,9 @@
         name:  https://dl.flathub.org/repo/appstream/md.obsidian.Obsidian.flatpakref
         state: latest
 
-    - name: Install Vesktop
+    - name: Install Discord
       community.general.flatpak:
-        name: https://dl.flathub.org/repo/appstream/dev.vencord.Vesktop.flatpakref
+        name: https://dl.flathub.org/repo/appstream/com.discordapp.Discord.flatpakref
         state: latest
 
     - name: Install Mission Center
@@ -29,6 +29,48 @@
       become: true
       ansible.builtin.dnf:
         name: steam
+        state: latest
+
+    - name: Install Wireguard
+      become: true
+      ansible.builtin.dnf:
+        name: wireguard-tools
+        state: latest
+
+    - name: Install Solaar
+      become: true
+      ansible.builtin.dnf:
+        name: solaar
+        state: latest
+
+    - name: Install Syncthing
+      become: true
+      community.general.flatpak:
+        name: https://dl.flathub.org/repo/appstream/com.github.zocker_160.SyncThingy.flatpakref
+        state: latest
+
+    - name: Install Anki
+      become: true
+      community.general.flatpak:
+        name: https://dl.flathub.org/repo/appstream/net.ankiweb.Anki.flatpakref
+        state: latest
+
+    - name: Install Signal
+      become: true
+      community.general.flatpak:
+        name: https://dl.flathub.org/repo/appstream/org.signal.Signal.flatpakref
+        state: latest
+
+    - name: Install Thunderbird
+      become: true
+      community.general.flatpak:
+        name: https://dl.flathub.org/repo/appstream/org.mozilla.Thunderbird.flatpakref
+        state: latest
+
+    - name: Install LibreOffice
+      become: true
+      community.general.flatpak:
+        name: https://dl.flathub.org/repo/appstream/org.libreoffice.LibreOffice.flatpakref
         state: latest
 
     - name: Install full HEIC support
