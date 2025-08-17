@@ -66,6 +66,47 @@
         name: sqlitebrowser
         state: latest
 
+    - name: Ensure npm is installed
+      become: true
+      dnf:
+        name: npm
+        state: present
+        
+    - name: Install Claude Code globally
+      become: true
+      npm:
+        name: "@anthropic-ai/claude-code"
+        global: yes
+        state: present
+
+    - name: Install Rust & Cargo
+      become: true
+      dnf:
+        name: 
+          - rust
+          - cargo
+        state: latest
+
+    - name: Install C Development Tools and Libraries
+      become: true
+      dnf:
+        name: "@C Development Tools and Libraries"
+        state: latest
+
+    - name: Install Tauri dependencies
+      become: true
+      dnf:
+        name:
+          - openssl-devel
+          - curl
+          - wget
+          - file
+          - webkit2gtk4.0-devel
+          - webkit2gtk4.1-devel
+          - libappindicator-gtk3-devel
+          - librsvg2-devel
+        state: latest
+
 
     
 
