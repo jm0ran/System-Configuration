@@ -88,6 +88,12 @@
       community.general.flatpak:
         name: https://dl.flathub.org/repo/appstream/tv.plex.PlexHTPC.flatpakref
         state: latest
+
+    - name: Install MPV
+      community.general.flatpak:
+        name: https://dl.flathub.org/repo/appstream/io.mpv.Mpv.flatpakref
+        state: latest
+    
     
 
               

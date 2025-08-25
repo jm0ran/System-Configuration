@@ -1,1 +1,15 @@
 # General OS Personalization Settings
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Check current color scheme
+      command: kreadconfig5 --file kdeglobals --group General --key ColorScheme
+      register: current_theme
+      changed_when: false
+      failed_when: false
+
+    - name: Set Breeze Dark theme
+      command: lookandfeeltool -a org.kde.breezedark.desktop
+      when: current_theme.stdout != "BreezeDark"
+      environment:
+        DISPLAY: "{{ ansible_env.DISPLAY | default(':0') }}"
